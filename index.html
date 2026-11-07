@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#234d42">
   <meta name="description" content="NHMEC Client Wellness Portal interactive demonstration using fictional records only.">
-  <title>NHMEC Client Wellness Portal — Demo</title>
+  <title>NHMEC Client Wellness Portal — Account Preview</title>
   <style>
     :root{--forest:#234d42;--deep:#14372e;--fern:#557e64;--sage:#eaf1e9;--cream:#fcfaf5;--paper:#fff;--ink:#263b33;--muted:#66776e;--line:#dce6df;--gold:#c0a366;--focus:#a65e18;--shadow:0 7px 25px rgba(26,57,43,.07)}
     *,*::before,*::after{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;background:var(--cream);color:var(--ink);font:16px/1.55 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif} button,input,textarea,select{font:inherit} button,a{touch-action:manipulation} button{cursor:pointer} a{color:var(--forest)} :focus-visible{outline:3px solid #e5a842;outline-offset:3px}
@@ -16,14 +16,16 @@
     .entry{border:1px solid var(--line);border-radius:12px;padding:15px;margin-top:13px;background:#fff}.entry.practitioner{background:#f1f6f1;margin-left:20px;border-left:3px solid var(--fern)}.entryhead{display:flex;justify-content:space-between;gap:12px;align-items:baseline;font-size:.82rem;color:var(--muted)}.entryhead b{color:var(--deep)}.entry p{white-space:pre-wrap;overflow-wrap:anywhere;margin:8px 0 0}.stack{display:flex;flex-direction:column;gap:9px}label{font-size:.88rem;font-weight:700;color:var(--deep)}textarea,input[type=text],input[type=url],input[type=date],select{border:1px solid #bfcec5;border-radius:10px;padding:11px 12px;width:100%;min-width:0;background:white;color:var(--ink)}textarea{min-height:115px;resize:vertical}.field{display:grid;gap:6px;margin:13px 0}.btnrow{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}.formfoot{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.tag{font-size:.75rem;border-radius:30px;background:#f0f4ef;padding:4px 10px;color:#526e5a;font-weight:700;white-space:nowrap}.tag.due{background:#fff0cd;color:#765519}.progress{height:8px;background:#e4eee5;border-radius:20px;overflow:hidden;margin:10px 0 3px}.progress span{height:100%;background:#63886a;display:block}.score{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.score .field{margin:0}.score select{width:100%}.client-list{display:grid;gap:11px}.client-item{border:1px solid var(--line);border-radius:12px;background:#fff;display:flex;align-items:center;padding:13px;gap:12px;text-align:left;width:100%}.client-item:hover,.client-item.selected{border-color:#9bbaa5;background:#f3f8f3}.avatar{width:41px;height:41px;border-radius:50%;display:grid;place-items:center;background:#dfebde;color:var(--forest);font-weight:800;flex-shrink:0}.client-item .grow{flex:1}.client-item b{display:block;font-size:.95rem}.client-item small{display:block;color:var(--muted)}.dot{background:#a7662a;border-radius:20px;width:9px;height:9px}.plan-top{background:linear-gradient(135deg,#e9f2e9,#f9f7eb);padding:21px;border-radius:13px;margin:14px 0}.plan-top h3{margin:0;font:normal 21px Georgia,serif}.plan-top p{margin-bottom:0}.empty{border:1px dashed #b9c9bd;border-radius:13px;text-align:center;padding:28px;color:var(--muted)}.toast{position:fixed;bottom:20px;right:20px;z-index:50;background:#224b40;color:#fff;border-radius:12px;padding:12px 18px;box-shadow:var(--shadow);max-width:min(350px,calc(100vw - 40px));display:none}.toast.show{display:block}.foot{border-top:1px solid var(--line);color:var(--muted);font-size:.77rem;text-align:center;padding:20px 12px 35px}.hidden{display:none!important}
     @media(max-width:810px){.layout{grid-template-columns:minmax(0,1fr);gap:18px;padding-top:20px}.side{min-width:0}.side .panel{min-width:0;max-width:100%}.nav{max-width:100%}.side{position:static}.side .panel{padding:9px}.side .subtle,.side-note{display:none}.nav{flex-direction:row;overflow-x:auto}.nav button{white-space:nowrap;padding:10px 13px;font-size:.85rem}.headline{font-size:30px}.header{min-height:0}.grid{gap:12px}.tile{min-height:212px;padding:17px}}
     @media(max-width:550px){.wrap{padding:0 14px}.brand b{font-size:20px}.header{gap:12px}.switcher{width:100%}.switcher button{flex:1}.grid{grid-template-columns:1fr}.tile{min-height:0}.stats{grid-template-columns:1fr 1fr}.section{padding:18px}.score{grid-template-columns:1fr}.headline{font-size:27px}.entry.practitioner{margin-left:10px}}
+    .auth-shell{max-width:650px;margin:42px auto;padding:30px}.auth-shell h1{font:normal 32px Georgia,serif;color:var(--deep);margin:0 0 10px}.auth-shell p{color:var(--muted)}.auth-buttons{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}.auth-buttons button{flex:1;min-width:145px}.auth-input{border:1px solid #bfcec5;border-radius:10px;padding:11px 12px;width:100%;background:#fff}.auth-message{padding:12px;background:var(--sage);border-radius:10px;margin-top:14px;white-space:pre-wrap}.auth-error{background:#fff0e7;color:#783b23}.auth-toolbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;color:white}.auth-toolbar button{border:1px solid #a8c3ad;border-radius:9px;padding:8px 12px;background:transparent;color:#fff}
   </style>
 </head>
 <body>
-  <div class="demo-banner" role="note">INTERACTIVE PROTOTYPE • Fictional clients only • No secure login or real records • Do not enter personal health information</div>
-  <header><div class="wrap header"><div class="brand"><div class="logo" aria-hidden="true">✦</div><div><b>NHMEC Wellness Portal</b><small>Your Holistic P.E.N. Way™ Journey</small></div></div><div class="switcher" aria-label="Demo view" role="group"><button id="clientMode" aria-pressed="true">Client view</button><button id="adminMode" aria-pressed="false">Practitioner view</button></div></div></header>
-  <div class="wrap layout"><aside class="side"><div class="panel"><div class="subtle" id="navLabel">MY PORTAL</div><nav class="nav" id="navigation" aria-label="Portal sections"></nav></div><div class="side-note">This demo saves fictional test changes only in <strong>this browser</strong>. Clearing browser data or choosing “Reset demo” removes them. It is not secure storage.</div></aside><main id="main" tabindex="-1" aria-live="polite"></main></div>
+  <div class="demo-banner" role="note">ACCOUNT & LOGIN TEST • Fictional clients only • Wellness records are NOT connected to secure storage • Do not enter personal health information</div>
+  <header><div class="wrap header"><div class="brand"><div class="logo" aria-hidden="true">✦</div><div><b>NHMEC Wellness Portal</b><small>Your Holistic P.E.N. Way™ Journey</small></div></div><div class="auth-toolbar"><span id="signedInLabel"></span><button id="logoutButton" class="hidden" type="button">Sign out</button></div></div></header>
+  <div id="authRoot" class="wrap"></div><div id="portalRoot" class="wrap layout hidden"><aside class="side"><div class="panel"><div class="subtle" id="navLabel">FICTIONAL DEMO</div><div class="switcher" aria-label="Demo view" role="group"><button id="clientMode" aria-pressed="true">Client view</button><button id="adminMode" aria-pressed="false">Practitioner view</button></div><nav class="nav" id="navigation" aria-label="Portal sections"></nav></div><div class="side-note">This demo saves fictional test changes only in <strong>this browser</strong>. Clearing browser data or choosing “Reset demo” removes them. It is not secure storage.</div></aside><main id="main" tabindex="-1" aria-live="polite"></main></div>
   <footer class="foot">Natural Health Ministries Education Center (NHMEC) · Demonstration only · This is not a medical records system or an emergency messaging service.</footer>
   <div class="toast" id="toast" role="status"></div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
   <script>
   'use strict';
   const KEY='nhmec_client_demo_v1';
@@ -130,7 +132,61 @@
   window.nhmecChooseClient=id=>choose(id,page);
   document.getElementById('clientMode').addEventListener('click',()=>switchMode('client'));
   document.getElementById('adminMode').addEventListener('click',()=>switchMode('admin'));
-  save();render();
+  // The existing interactive wellness records remain fictional and local-only.
+  // This demo is available exclusively after an administrator lookup succeeds.
+  const SB_URL='https://botnjpohkojcyzjulfzo.supabase.co';
+  const SB_KEY='sb_publishable_mIaOJ2hZUAP70zOq3gpq2g_NtPSNTQs';
+  const sb=window.supabase?.createClient(SB_URL,SB_KEY,{auth:{detectSessionInUrl:true}});
+  const authRoot=document.getElementById('authRoot');
+  const portalRoot=document.getElementById('portalRoot');
+  const logoutButton=document.getElementById('logoutButton');
+  let authPage='welcome', authNotice='', authError=false, currentSession=null, authBusy=false;
+  const landing=()=>window.location.origin+window.location.pathname;
+  function authMessage(message,error=false){authNotice=message;authError=error;showAuth()}
+  function showAuth(){
+    portalRoot.classList.add('hidden');authRoot.classList.remove('hidden');logoutButton.classList.toggle('hidden',!currentSession);
+    const info=authNotice?`<div role="status" class="auth-message ${authError?'auth-error':''}">${esc(authNotice)}</div>`:'';
+    const back='<button class="ghost" type="button" data-auth="welcome">← Back</button>';
+    let content='';
+    if(authPage==='welcome')content=`<h1>Welcome to NHMEC</h1><p>Your Holistic P.E.N. Way™ Journey begins here.</p><div class="auth-buttons"><button class="action" data-auth="client">Client Login</button><button class="action" data-auth="register">Create Account</button><button class="action secondary" data-auth="practitioner">Practitioner Login</button></div>`;
+    if(authPage==='client'||authPage==='practitioner')content=`<h1>${authPage==='client'?'Client':'Practitioner'} Login</h1><p>Sign in with your NHMEC account.</p><form id="loginForm"><div class="field"><label for="authEmail">Email</label><input class="auth-input" type="email" id="authEmail" autocomplete="email" required></div><div class="field"><label for="authPassword">Password</label><input class="auth-input" type="password" id="authPassword" autocomplete="current-password" required></div><div class="btnrow"><button class="action" type="submit">Sign in</button>${back}<button class="ghost" type="button" data-auth="forgot">Forgot Password?</button></div></form>`;
+    if(authPage==='register')content=`<h1>Create Your Client Account</h1><p>After verifying your email, your account will wait for NHMEC approval. Do not submit personal health information.</p><form id="registerForm"><div class="field"><label for="authEmail">Email</label><input class="auth-input" type="email" id="authEmail" autocomplete="email" required></div><div class="field"><label for="authPassword">Password</label><input class="auth-input" type="password" id="authPassword" autocomplete="new-password" minlength="8" required></div><div class="btnrow"><button class="action" type="submit">Create account</button>${back}</div></form>`;
+    if(authPage==='forgot')content=`<h1>Reset Your Password</h1><p>Enter your account email to request a recovery link.</p><form id="forgotForm"><div class="field"><label for="authEmail">Email</label><input class="auth-input" type="email" id="authEmail" autocomplete="email" required></div><div class="btnrow"><button class="action" type="submit">Send reset email</button>${back}</div></form>`;
+    if(authPage==='reset')content=`<h1>Choose a New Password</h1><form id="resetForm"><div class="field"><label for="authPassword">New password</label><input class="auth-input" type="password" id="authPassword" autocomplete="new-password" minlength="8" required></div><div class="btnrow"><button class="action" type="submit">Update password</button></div></form>`;
+    if(authPage==='pending')content=`<h1>Awaiting Practitioner Approval</h1><p>Thank you for registering! Your NHMEC account is pending approval. Please check back later.</p><p class="small">Your wellness records are not available in this test version.</p>`;
+    if(authPage==='suspended')content=`<h1>Account Not Active</h1><p>Your NHMEC client access is currently suspended. Please contact NHMEC for assistance.</p>`;
+    if(authPage==='approved')content=`<h1>Welcome to Your NHMEC Portal</h1><p>Your account is approved. The secure client wellness-record system is still being built and is not available yet.</p><p class="small">No fictional or other clients' records are displayed here.</p>`;
+    if(authPage==='admin')content=`<h1>Practitioner Account Verified</h1><p>Your administrator login was recognized by Supabase.</p><p><strong>Important:</strong> The following dashboard contains fictional browser-only demonstration records. It is not connected to secure wellness-record storage.</p><button class="action" id="openDemo">Open fictional practitioner demo</button>`;
+    authRoot.innerHTML=`<section class="panel auth-shell">${content}${info}</section>`;
+    authRoot.querySelectorAll('[data-auth]').forEach(b=>b.addEventListener('click',()=>{authPage=b.dataset.auth;authNotice='';showAuth()}));
+    authRoot.querySelector('#loginForm')?.addEventListener('submit',login);
+    authRoot.querySelector('#registerForm')?.addEventListener('submit',register);
+    authRoot.querySelector('#forgotForm')?.addEventListener('submit',forgot);
+    authRoot.querySelector('#resetForm')?.addEventListener('submit',resetPassword);
+    authRoot.querySelector('#openDemo')?.addEventListener('click',()=>{authRoot.classList.add('hidden');portalRoot.classList.remove('hidden');switchMode('admin')});
+  }
+  async function login(e){e.preventDefault();if(!sb)return authMessage('Authentication library unavailable. Check your connection.',true);const email=document.getElementById('authEmail').value.trim(),password=document.getElementById('authPassword').value;const {error}=await sb.auth.signInWithPassword({email,password});if(error)return authMessage(error.message,true);await routeAccount()}
+  async function register(e){e.preventDefault();if(!sb)return authMessage('Authentication library unavailable.',true);const email=document.getElementById('authEmail').value.trim(),password=document.getElementById('authPassword').value;const {data:result,error}=await sb.auth.signUp({email,password,options:{emailRedirectTo:landing()}});if(error)return authMessage(error.message,true);authPage='client';authMessage(result.session?'Account created. Awaiting approval.':'Please check your email for a confirmation link. After confirmation, your account will await approval.')}
+  async function forgot(e){e.preventDefault();if(!sb)return authMessage('Authentication library unavailable.',true);const email=document.getElementById('authEmail').value.trim();const {error}=await sb.auth.resetPasswordForEmail(email,{redirectTo:landing()});authMessage(error?error.message:'If an account exists for that email, a recovery message will be sent.',!!error)}
+  async function resetPassword(e){e.preventDefault();const password=document.getElementById('authPassword').value;const {error}=await sb.auth.updateUser({password});if(error)return authMessage(error.message,true);authPage='welcome';authMessage('Password updated. You can now sign in.')}
+  async function routeAccount(){
+    if(!sb)return authMessage('Authentication library unavailable.',true);
+    const {data:{session},error}=await sb.auth.getSession();
+    currentSession=session;
+    if(error||!session){document.getElementById('signedInLabel').textContent='';authPage='welcome';showAuth();return}
+    document.getElementById('signedInLabel').textContent='Signed in';
+    // RLS restricts portal_admins to the signed-in administrator's own row.
+    const admin=await sb.from('portal_admins').select('user_id').eq('user_id',session.user.id).maybeSingle();
+    if(admin.error){authPage='welcome';return authMessage('Unable to verify account permissions. Please try again later.',true)}
+    if(admin.data){authPage='admin';authNotice='';showAuth();return}
+    const profile=await sb.from('client_profiles').select('approval_status').eq('user_id',session.user.id).maybeSingle();
+    if(profile.error){authPage='welcome';return authMessage('Unable to check client approval status. Please contact NHMEC.',true)}
+    authPage=profile.data?.approval_status==='approved'?'approved':profile.data?.approval_status==='suspended'?'suspended':'pending';
+    authNotice='';showAuth();
+  }
+  logoutButton.addEventListener('click',async()=>{if(sb)await sb.auth.signOut();currentSession=null;authPage='welcome';authNotice='';document.getElementById('signedInLabel').textContent='';showAuth()});
+  if(sb){sb.auth.onAuthStateChange((event)=>{if(event==='PASSWORD_RECOVERY'){authPage='reset';authNotice='';showAuth()}else if(event==='SIGNED_OUT'){currentSession=null;authPage='welcome';showAuth()}});routeAccount()}else{authPage='welcome';authNotice='Unable to load the authentication library. Check your internet connection.';authError=true;showAuth()}
+
   </script>
 </body>
 </html>
