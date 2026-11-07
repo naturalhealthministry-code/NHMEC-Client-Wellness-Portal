@@ -155,7 +155,24 @@
     if(authPage==='reset')content=`<h1>Choose a New Password</h1><form id="resetForm"><div class="field"><label for="authPassword">New password</label><input class="auth-input" type="password" id="authPassword" autocomplete="new-password" minlength="8" required></div><div class="btnrow"><button class="action" type="submit">Update password</button></div></form>`;
     if(authPage==='pending')content=`<h1>Awaiting Practitioner Approval</h1><p>Thank you for registering! Your NHMEC account is pending approval. Please check back later.</p><p class="small">Your wellness records are not available in this test version.</p>`;
     if(authPage==='suspended')content=`<h1>Account Not Active</h1><p>Your NHMEC client access is currently suspended. Please contact NHMEC for assistance.</p>`;
-    if(authPage==='approved')content=`<h1>Welcome to Your NHMEC Portal</h1><p>Your account is approved. The secure client wellness-record system is still being built and is not available yet.</p><p class="small">No fictional or other clients' records are displayed here.</p>`;
+    if(authPage==='approved')content=`
+  <h1>Welcome to Your NHMEC Portal</h1>
+  <p>Your Holistic P.E.N. Way™ Wellness Journey</p>
+
+  <div class="plan-top">
+    <h3>My Individualized Wellness Plan</h3>
+    <p>Your personalized Perspective, Essence, and Nutrition guidance.</p>
+  </div>
+
+  <div id="clientWellnessPlan">
+    <p>Loading your wellness plan...</p>
+  </div>
+
+  <p class="small muted">
+    TESTING ONLY — Fictional wellness information.
+    This portal is not yet approved for real client health records.
+  </p>
+`;
     if(authPage==='admin')content=`<h1>Practitioner Account Verified</h1><p>Your administrator login was recognized by Supabase.</p><p><strong>Important:</strong> The following dashboard contains fictional browser-only demonstration records. It is not connected to secure wellness-record storage.</p><button class="action" id="openDemo">Open fictional practitioner demo</button>`;
     authRoot.innerHTML=`<section class="panel auth-shell">${content}${info}</section>`;
     authRoot.querySelectorAll('[data-auth]').forEach(b=>b.addEventListener('click',()=>{authPage=b.dataset.auth;authNotice='';showAuth()}));
@@ -169,7 +186,58 @@
   async function register(e){e.preventDefault();if(!sb)return authMessage('Authentication library unavailable.',true);const email=document.getElementById('authEmail').value.trim(),password=document.getElementById('authPassword').value;const {data:result,error}=await sb.auth.signUp({email,password,options:{emailRedirectTo:landing()}});if(error)return authMessage(error.message,true);authPage='client';authMessage(result.session?'Account created. Awaiting approval.':'Please check your email for a confirmation link. After confirmation, your account will await approval.')}
   async function forgot(e){e.preventDefault();if(!sb)return authMessage('Authentication library unavailable.',true);const email=document.getElementById('authEmail').value.trim();const {error}=await sb.auth.resetPasswordForEmail(email,{redirectTo:landing()});authMessage(error?error.message:'If an account exists for that email, a recovery message will be sent.',!!error)}
   async function resetPassword(e){e.preventDefault();const password=document.getElementById('authPassword').value;const {error}=await sb.auth.updateUser({password});if(error)return authMessage(error.message,true);authPage='welcome';authMessage('Password updated. You can now sign in.')}
-  async function routeAccount(){
+ async function loadClientWellnessPlan() {
+  const container = document.getElementById('clientWellnessPlan');
+  if (!container) return;
+
+  container.textContent = 'Loading your wellness plan...';
+
+  const { data: userResult, error: userError } =
+    await sb.auth.getUser();
+
+  if (userError || !userResult.user) {
+    container.textContent = 'Please sign in again.';
+    return;
+  }
+
+  const { data: plan, error } = await sb
+    .from('wellness_plans')
+    .select('plan_title, perspective, essence, nutrition')
+    .eq('client_id', userResult.user.id)
+    .maybeSingle();
+
+  if (error) {
+    container.textContent =
+      'Unable to load your wellness plan. Please try again later.';
+    return;
+  }
+
+  if (!plan) {
+    container.textContent =
+      'Your practitioner has not assigned a wellness plan yet.';
+    return;
+  }
+
+  container.innerHTML = `
+    <section class="panel section">
+      <h2>${esc(plan.plan_title)}</h2>
+
+      <h3>Perspective (Spirit)</h3>
+      <p>${esc(plan.perspective)}</p>
+
+      <div class="rule"></div>
+
+      <h3>Essence (Soul)</h3>
+      <p>${esc(plan.essence)}</p>
+
+      <div class="rule"></div>
+
+      <h3>Nutrition (Body)</h3>
+      <p>${esc(plan.nutrition)}</p>
+    </section>
+  `;
+}
+    async function routeAccount(){
     if(!sb)return authMessage('Authentication library unavailable.',true);
     const {data:{session},error}=await sb.auth.getSession();
     currentSession=session;
@@ -183,6 +251,9 @@
     if(profile.error){authPage='welcome';return authMessage('Unable to check client approval status. Please contact NHMEC.',true)}
     authPage=profile.data?.approval_status==='approved'?'approved':profile.data?.approval_status==='suspended'?'suspended':'pending';
     authNotice='';showAuth();
+      if (authPage === 'approved') {
+  await loadClientWellnessPlan();
+  }
   }
   logoutButton.addEventListener('click',async()=>{if(sb)await sb.auth.signOut();currentSession=null;authPage='welcome';authNotice='';document.getElementById('signedInLabel').textContent='';showAuth()});
   if(sb){sb.auth.onAuthStateChange((event)=>{if(event==='PASSWORD_RECOVERY'){authPage='reset';authNotice='';showAuth()}else if(event==='SIGNED_OUT'){currentSession=null;authPage='welcome';showAuth()}});routeAccount()}else{authPage='welcome';authNotice='Unable to load the authentication library. Check your internet connection.';authError=true;showAuth()}
